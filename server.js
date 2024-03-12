@@ -3,6 +3,10 @@ const app = express();
 const port = 3000;
 
 
+
+app.set("view engine", "ejs")
+
+
 app.use((req,res,next) => {
 
   
@@ -12,15 +16,27 @@ app.use(express.json());
 app.use(express.static('.')); 
 
 
+
+app.get('/', (req,res) => {
+
+    res.render('login')
+    res.end()
+})
+
+app.get('/products', (req,res) => {
+
+    res.render('products')
+    res.end()
+})
+
 app.get('/:rtn', (req,res) => {
 
-    res.send('Helloooo')
     res.end()
 })
 
 app.get('/profile/:routename', (req,res)=>{
 
-    res.send(`hi ${routename}`)
+    res.send(`hi ${req.params.routename}`)
     res.end()
 })
 
@@ -60,6 +76,6 @@ app.post('/signup', (req, res) => {
 
 
 app.listen(port, () => {
-    
+
     console.log(`Server running at http://localhost:${port}`);
 })
